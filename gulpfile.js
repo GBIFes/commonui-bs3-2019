@@ -60,7 +60,7 @@ var paths = {
      * 'living-atlas'
      * @type {string}
      */
-    output = 'ala',
+    output = 'living-atlas',
     /**
      * Address of the node server
      * Check readme for more details
@@ -138,11 +138,11 @@ function testHTMLPage() {
     return src('testTemplate.html')
         .pipe(replace('HEADER_HERE', header))
         .pipe(replace('FOOTER_HERE', footer))
-        .pipe(replace(/::containerClass::/g, 'container-fluid'))
+        .pipe(replace(/::containerClass::/g, 'container'))
         .pipe(replace(/::headerFooterServer::/g, localserver))
         .pipe(replace(/::loginStatus::/g, 'signedOut'))
-        .pipe(replace(/::loginURL::/g, 'https://auth.ala.org.au/cas/login'))
-        .pipe(replace(/::searchServer::/g, 'https://bie.ala.org.au'))
+        .pipe(replace(/::loginURL::/g, 'https://auth.gbif.es/cas/login'))
+        .pipe(replace(/::searchServer::/g, 'https://especies.gbif.es'))
         .pipe(replace(/::searchPath::/g, '/search'))
         .pipe(rename('testPage.html'))
         .pipe(dest(paths.html.dest));
