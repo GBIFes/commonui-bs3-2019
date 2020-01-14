@@ -925,7 +925,7 @@ footer nav ul {
 footer nav ul li {
     list-style: none;
     width: 50%;
-    display: inline-block; 
+    display: inline-block;
 }
 footer nav ul li { /* :nth-child(2n) { */
     padding-left: 22px;
@@ -5172,9 +5172,9 @@ footer nav ul li {
 
 /* underscore in selected langs */
 header#masthead #topheader .langbox ul li.wpml-ls-current-language a span:before {
-    content: "";    
-    background: #3a67a1; /* #36de97; */    
-    display: block;   
+    content: "";
+    background: #3a67a1; /* #36de97; */
+    display: block;
     padding-bottom:2px;
     position: relative;
     bottom: -18px;
@@ -5187,3 +5187,14 @@ header#masthead #topheader .langbox ul li.wpml-ls-current-language a span:before
     z-index: 0;
 }
 
+button.search-icon {
+  border: 0px;
+  padding: 0px;
+}
+
+.auth-nav {
+  text-align: right;
+  min-height: 20px;
+  margin-bottom: -10px;
+  border: 0px;
+}
