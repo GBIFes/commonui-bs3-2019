@@ -5198,3 +5198,22 @@ button.search-icon {
   margin-bottom: -30px;
   border: 0px;
 }
+
+#navbarOuterWrapper > div > div.signedIn > .signUpBtn {
+  display: none;
+}
+
+.header-logo-menu > div.signedOut > a.myProfileBtn,
+#navbarOuterWrapper > div > div.signedOut > .myProfileBtn {
+  display: none;
+}
+
+.header-logo-menu > div.signedIn > a.mobile-login-btn,
+#navbarOuterWrapper > div > div.signedIn > .loginBtn  {
+  display: none;
+}
+
+.header-logo-menu > div.signedOut > a.mobile-logout-btn,
+#navbarOuterWrapper > div > div.signedOut > .logoutBtn  {
+  display: none;
+}
