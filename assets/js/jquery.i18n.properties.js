@@ -15,7 +15,7 @@
   $.i18n = {};
 
   /**
-     * Map holding bundle keys if mode is 'map' or 'both'. Values of this can also be an
+   * Map holding bundle keys if mode is 'map' or 'both'. Values of this can also be an
      * Object, in which case the key is a namespace.
      */
   $.i18n.map = {};
@@ -275,7 +275,7 @@
       return value[0];
     }
     if (!value) {
-	    if (gbifesjs.isDevel) console.log(`missing i18n key: ${key}`);
+      console.log(`missing i18n key: ${key}`);
     }
 
     let str = '';

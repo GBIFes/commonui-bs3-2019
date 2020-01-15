@@ -111,3 +111,5 @@ function focusOnClickSearchButton () {
         document.getElementById('autocompleteHeader').focus();
     }, 0);
 }
+
+export default focusOnClickSearchButton;

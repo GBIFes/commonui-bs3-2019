@@ -1,4 +1,5 @@
-setTimeout(() => {
+function addCollectoryDownloadsLegend() {
+  setTimeout(() => {
   if (/^colecciones.gbif.es/.test(window.location.host)) {
     if ($('#logs-since-2018').length === 0) {
       console.log('Adding downloads label to collectory');
@@ -7,3 +8,11 @@ setTimeout(() => {
     }
   }
 }, 4000);
+};
+
+document.addEventListener("DOMContentLoaded",function(){
+  addCollectoryDownloadsLegend();
+});
+
+
+// TODO do something with this

@@ -1,3 +1,5 @@
+import { locale } from './i18n_init.js';
+
 function loadStats(){
 
   $.getJSON("https://registros-ws.gbif.es/occurrences/search?pageSize=0", function( data ) {
@@ -32,3 +34,7 @@ function addPeriods(nStr)
   }
   return x1 + x2;
 }
+
+document.addEventListener("DOMContentLoaded",function(){
+  loadStats();
+});

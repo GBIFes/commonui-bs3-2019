@@ -1,7 +1,10 @@
-$( document ).ready(function() {
-    const path = `${gbifesjs.layoutUrl}i18n/`;
+import gbifesjs from './settings.js';
+import { locale } from './i18n_init.js';
 
-    jQuery.i18n.properties({                                                                                                                     name: 'messages', path, mode: 'both', language: locale, async: true, callback() {
+$( document ).ready(function() {
+  const path = `${gbifesjs.layoutUrl}i18n/`;
+
+  jQuery.i18n.properties({                                                                                                                     name: 'messages', path, mode: 'both', language: locale, async: true, callback() {
 	$(document).euCookieLawPopup().init({
 	    cookiePolicyUrl : 'https://www.gbif.es/politica-de-cookies/',
 	    popupPosition : 'bottom',

@@ -1,10 +1,16 @@
-/**
- * Simple function to internationalise menus and sections of the home page.
- */
+import './url.js';
+import gbifesjs from './settings.js';
 
-var enabledLangs = ['es', 'en', 'ca'];
+var locale;
+
+var currentUrl  = new Url;
+
+const enabledLangs = ['es', 'en', 'ca'];
+
+if (gbifesjs.isDevel) console.log("Is development!");
 
 function i18n_init() {
+  // https://caniuse.com/#search=URL
   const url = new URL(window.location.href);
 
   locale = url.searchParams.get('lang');
@@ -21,7 +27,6 @@ function i18n_init() {
 
   if (gbifesjs.isDevel) console.log(`Initial locale: ${locale}`);
 
-
   const isValid = (enabledLangs.indexOf(locale) > -1);
   if (!isValid) {
     locale = 'es';
@@ -29,10 +34,12 @@ function i18n_init() {
   }
 }
 
-var locale ;
+if (gbifesjs.isDevel) console.log(`Current lang: ${currentUrl.query["lang"]}`);
 
 if (typeof locale === 'undefined') {
-   i18n_init();
+  i18n_init();
 }
 
 if (gbifesjs.isDevel) console.log(`locale: ${locale}`);
+
+export { locale, enabledLangs };

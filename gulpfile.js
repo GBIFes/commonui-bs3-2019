@@ -1,29 +1,24 @@
 const gulp = require('gulp');
 
-
 const gulpSass = require('gulp-sass');
-
 
 const csso = require('gulp-csso');
 
-
 const rename = require('gulp-rename');
-
 
 const replace = require('gulp-replace');
 
-
 const uglify = require('gulp-uglify');
-
 
 const babel = require('gulp-babel');
 
-
 const fs = require('fs');
-
 
 const del = require('del');
 
+const gulpTraceurCmdline = require('gulp-traceur-cmdline');
+
+const concat = require('gulp-concat');
 
 const { src, dest } = gulp;
 
@@ -57,7 +52,7 @@ const paths = {
     dest: 'build/js/'
   },
   html: {
-    src: ['banner.html', 'footer.html', 'head.html'],
+    src: ['banner.html', 'footer.html', 'head.html', 'testTemplate.html', 'index_gbif_es.html'],
     dest: 'build/'
   },
   font: {
@@ -66,6 +61,7 @@ const paths = {
   },
   js: {
     src: [
+      'node_modules/domurl/url.js',
       'assets/js/*.js'
     ],
     dest: 'build/js/',
@@ -77,19 +73,19 @@ const paths = {
 };
 
 /**
-     * Possible values
-     * 'ala'
-     * 'living-atlas'
-     * @type {string}
-     */
+ * Possible values
+ * 'ala'
+ * 'living-atlas'
+ * @type {string}
+ */
 
 const output = 'living-atlas';
 
 /**
-     * Address of the node server
-     * Check readme for more details
-     * @type {string}
-     */
+ * Address of the node server
+ * Check readme for more details
+ * @type {string}
+ */
 
 const localserver = 'http://localhost:8099';
 
@@ -228,10 +224,26 @@ function autocompleteJS() {
 function otherJsFiles() {
   return src(paths.js.src)
     .pipe(dest(paths.js.dest))
-    .pipe(babel({ presets: ['@babel/preset-env']}))
+    .pipe(babel({
+      presets: ['@babel/preset-env']
+    }))
+    .pipe(gulpTraceurCmdline({
+      modules: 'inline',
+      debug   : true  }))
+    /* .pipe(concat('all.js')) */
     .pipe(uglify({ output: { comments: '/^!/' } }))
     .pipe(rename({ extname: '.min.js' }))
     .pipe(dest(paths.js.dest));
+
+  /* .pipe(requirejsOptimize( {
+   *   optimize: 'none'
+   * })) */
+  /* .pipe(gulpTraceurCmdline('~/.npm-packages/bin/traceur', { */
+  /* modules: 'inline',
+     outputLanguage: 'es6', */
+  /* out     : '/tmp/main.js', */
+  /* debug   : true  })) */
+
 }
 
 const js = gulp.parallel(jQuery, jqueryMigration, bootstrapJS, autocompleteJS, otherJsFiles);

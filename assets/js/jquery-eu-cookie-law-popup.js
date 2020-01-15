@@ -16,8 +16,8 @@
 
 (function($) {
 
-// for ie9 doesn't support debug console >>>
-if (!window.console) window.console = {};
+  // for ie9 doesn't support debug console >>>
+  if (!window.console) window.console = {};
 if (!window.console.log) window.console.log = function () { };
 // ^^^
 
@@ -54,7 +54,7 @@ $.fn.euCookieLawPopup = (function() {
 	// PRIVATE FUNCTIONS FOR MANIPULATING DATA ////////////////////////////////////////////////////
 
 	// Overwrite default parameters if any of those is present
-	var parseParameters = function(object, markup, settings) {
+  var parseParameters = function(object, markup, settings) {
 
 		if (object) {
 			var className = $(object).attr('class') ? $(object).attr('class') : '';

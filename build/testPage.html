@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="css/jquery-eu-cookie-law-popup.min.css">
     <link rel="stylesheet" href="css/style.min.css">
     <link rel="stylesheet" type="text/css" id="wpml-legacy-horizontal-list-0-css" href="https://www.gbif.es/wp-content/plugins/sitepress-multilingual-cms/templates/language-switchers/legacy-list-horizontal/style.css?ver=1" type="text/css" media="all" />
+    <!-- <script src="js/babelpolyfill.js"></script> -->
+    <!-- <script src="js/system.min.js"></script> -->
+    <script src="js/url.min.js"></script>
     <script src="js/settings.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migration.min.js"></script>
@@ -26,10 +29,9 @@
     <script src="js/collectory.min.js"></script>
     <script src="js/css-loader.min.js"></script>
     <script src="js/i18n_init.min.js"></script>
-    <script>
-      if (gbifesjs.isDevel) console.log("Is development!");
-    </script>
-    <!-- <script src="js/sentry.min.js"></script> -->
+    <script src="js/i18n_menus.min.js"></script>
+    <script src="js/sentry.min.js"></script>
+    <script src="js/stats.min.js"></script>
 </head>
 <body>
 <script type="text/html" id="autoCompleteTemplate">
@@ -384,12 +386,6 @@
 <script src="http://localhost:8099/js/jquery.i18n.properties.js" type="text/javascript" defer></script>
 <script src="http://localhost:8099/js/bootstrap.min.js" type="text/javascript" defer></script>
 <script src="http://localhost:8099/js/stats.min.js" type="text/javascript"></script>
-<script>
-  $(document).ready(function(){
-    if (gbifesjs.isDevel) console.log('jQuery ready');
-    loadStats();
-  });
-</script>
 
 <div id="INSERT_CONTENT_ID_HERE" class="container">
     <section class="content-container">
@@ -536,21 +532,9 @@
 </footer>
 
 <!-- .site-footer -->
-<script>
-  (function() { // Scoping function to avoid globals
-    if (typeof jQuery.i18n === 'undefined') {
-      document.write('<script src="http://localhost:8099/js/jquery.i18n.properties.min.js"><\/script>');
-    }
-  })();
-</script>
-<script src="http://localhost:8099/js/i18n_menus.min.js" type="text/javascript" defer></script>
-<script defer>
-  $( document ).ready(function() {
-    i18n_menus();
-  });
-</script>
-<script src="http://localhost:8099/js/jquery-eu-cookie-law-popup.min.js" defer></script>
-<script src="http://localhost:8099/js/jquery-eu-cookie-law-popup-gbif.min.js" defer></script>
+<script src="http://localhost:8099/js/i18n_menus.min.js" type="text/javascript"></script>
+<script src="http://localhost:8099/js/jquery-eu-cookie-law-popup.min.js"></script>
+<script src="http://localhost:8099/js/jquery-eu-cookie-law-popup-gbif.min.js"></script>
 <!-- End footer -->
 
 </body>

@@ -1,6 +1,10 @@
 /**
  * Simple function to internationalise menus and sections of the home page.
  */
+
+import gbifesjs from './settings.js';
+import { locale, enabledLangs } from './i18n_init.js';
+
 function i18n_menus() {
   if (gbifesjs.isDevel) console.log(`locale in i18n_menus: ${locale}`);
 
@@ -121,3 +125,7 @@ function i18n_menus() {
     }
   });
 }
+
+document.addEventListener("DOMContentLoaded",function(){
+  i18n_menus();
+});
