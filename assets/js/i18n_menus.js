@@ -102,7 +102,12 @@ function i18n_menus() {
         'sub_menu_regions_detail',
         'footer_legal_code',
         'banner_search_input_placeholder',
-        'main_search_input_placeholder'
+        'main_search_input_placeholder',
+        'auth_bar_login',
+        'auth_bar_logout',
+        'auth_bar_signup',
+        'auth_bar_myprofile',
+        'autocompleteHeader_placeholder'
       ];
 
       for (let i = 0; i < keys.length; i++) {

@@ -1,5 +1,5 @@
 @font-face {
-    font-family: "Galano-Grotesque";
+  font-family: "Galano-Grotesque";
     font-style: normal;
     font-weight: normal;
     src: url("../fonts/galano_grotesque/GalanoGrotesque-Regular.woff") format("woff"),  url("../fonts/galano_grotesque/GalanoGrotesque-Regular.eot?") format("eot"),  url("../fonts/galano_grotesque/GalanoGrotesque-Regular.ttf") format("truetype"),  url("../fonts/galano_grotesque/GalanoGrotesque-Regular.woff2") format("woff2");
@@ -4805,7 +4805,7 @@ header#masthead #site-menu nav.navbar .navbar-header .navbar-toggle {
     margin: 50px 0 20px;
 }
 .softwareheader {
-    overflow: hidden;
+  overflow: hidden;
     height: auto!important;
 }
 .softwareheader img {
@@ -5199,21 +5199,91 @@ button.search-icon {
   border: 0px;
 }
 
+/* Top bar auth icons and btns */
+
+
+#navbarSmallOuterWrapper {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+@media screen and (max-width:550px) {
+  #navbarSmallOuterWrapper {
+    right: -15px;
+  }
+}
+
+#navbarOuterWrapper {
+  position: absolute;
+  top: 5px;
+  right: 150px;
+}
+
 #navbarOuterWrapper > div > div.signedIn > .signUpBtn {
   display: none;
 }
 
-.header-logo-menu > div.signedOut > a.myProfileBtn,
+#navbarSmallOuterWrapper.signedOut > a.myProfileBtn,
 #navbarOuterWrapper > div > div.signedOut > .myProfileBtn {
   display: none;
 }
 
-.header-logo-menu > div.signedIn > a.mobile-login-btn,
+#navbarSmallOuterWrapper.signedIn > a.mobile-login-btn,
 #navbarOuterWrapper > div > div.signedIn > .loginBtn  {
   display: none;
 }
 
-.header-logo-menu > div.signedOut > a.mobile-logout-btn,
+#navbarSmallOuterWrapper.signedOut > a.mobile-logout-btn,
 #navbarOuterWrapper > div > div.signedOut > .logoutBtn  {
   display: none;
+}
+
+/* Search bar */
+
+#wrapper-navbar #autocompleteSearchALA {
+  margin-top: 10px;
+}
+
+.collapse.in {
+  display: block;
+}
+
+#wrapper-navbar #autocompleteSearchALA {
+  margin-top: 10px;
+}
+
+.collapse.in {
+  display: block;
+}
+
+#wrapper-navbar form.search-form {
+  margin-bottom: 0;
+}
+
+#wrapper-navbar .space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#wrapper-navbar #autocompleteSearchALA input {
+  padding: 10px;
+  margin-right: 20px;
+  background-color: #e0e0e0;
+  border: 1px;
+  width: 100%;
+  border-radius: 3px;
+}
+
+#wrapper-navbar #autocompleteSearchALA .search-submit {
+  padding-right: 15px;
+}
+
+#wrapper-navbar .search-trigger, #wrapper-navbar .account-mobile, #wrapper-navbar .search-submit {
+  /* color: red; */
+  margin: .25rem .5rem;
+  padding: 2px 0;
+  background-color: transparent;
+  border: none;
 }
