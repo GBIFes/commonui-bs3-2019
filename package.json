@@ -18,6 +18,8 @@
     "node-static": "^0.7.11"
   },
   "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "fancy-log": "^1.3.3",
     "gulp-concat": "^2.6.1",
     "gulp-traceur-cmdline": "^1.3.10"
   }

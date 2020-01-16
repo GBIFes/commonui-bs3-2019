@@ -20,6 +20,11 @@ const gulpTraceurCmdline = require('gulp-traceur-cmdline');
 
 const concat = require('gulp-concat');
 
+// https://www.browsersync.io/docs/gulp
+const browserSync = require('browser-sync').create();
+
+const log = require('fancy-log');
+
 const { src, dest } = gulp;
 
 const paths = {
@@ -88,7 +93,7 @@ const output = 'living-atlas';
  * @type {string}
  */
 
-const localserver = 'http://localhost:8099';
+const localserver = 'http://localhost:3002';
 
 /**
  * Bootstrap output is dependent on value of @link{output} variable.
@@ -113,7 +118,8 @@ function bootstrapCSS() {
         .pipe(dest(paths.styles.dest))
         .pipe(csso({ restructure: false }))
         .pipe(rename('bootstrap.min.css'))
-        .pipe(dest(paths.styles.dest));
+        .pipe(dest(paths.styles.dest))
+        .pipe(browserSync.stream());
   }
 }
 
@@ -124,6 +130,7 @@ function autocompleteCSS() {
     .pipe(csso({ restructure: false }))
     .pipe(rename('autocomplete.min.css'))
     .pipe(dest(paths.styles.dest));
+
 }
 
 function fontawesome() {
@@ -233,7 +240,8 @@ function otherJsFiles() {
       debug   : true  }))
     .pipe(uglify({ output: { comments: '/^!/' } }))
     .pipe(rename({ extname: '.min.js' }))
-    .pipe(dest(paths.js.dest));
+    .pipe(dest(paths.js.dest))
+    .on('end', function(){ log('other js done!'); });
   /* .pipe(concat('all.js')) */
 }
 
@@ -245,6 +253,7 @@ function assetCopy() {
 }
 
 function watch() {
+  // This is deprecated better use gulp default sync
   gulp.watch(paths.html.src, testHTMLPage);
   gulp.watch(paths.html.src, html);
   gulp.watch(paths.styles.src, css);
@@ -267,3 +276,36 @@ exports.font = font;
 exports.js = js;
 exports.build = build;
 exports.clean = clean;
+
+const htmlWatch = gulp.series(html, testHTMLPage, function (done) {
+  browserSync.reload();
+  log('Reloading');
+  done();
+});
+
+const jsWatch = gulp.series(build, function (done) {
+  browserSync.reload();
+  log('Reloading');
+  done();
+});
+
+const cssWatch = gulp.series(css, function (done) {
+  browserSync.reload();
+  log('Reloading');
+  done();
+});
+
+gulp.task('default', gulp.series(css, html, testHTMLPage, images, font, js, function () {
+  browserSync.init({
+    server: {
+      baseDir: "./build/",
+      index: "testPage.html"
+    }
+  });
+
+  log("Configuring watch");
+  gulp.watch('assets/css/*.css', cssWatch);
+  gulp.watch('assets/js/*.js', jsWatch);
+  gulp.watch("*html", htmlWatch);
+  // TODO gulp.watch(paths.imagesothers.src, images-watch);
+}));
