@@ -1,3 +1,4 @@
+import './settings.js';
 import './top-search.js';
 import './autocomplete.js';
 import './application.js';
