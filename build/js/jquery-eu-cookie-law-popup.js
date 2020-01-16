@@ -223,12 +223,12 @@ $.fn.euCookieLawPopup = (function() {
 				$('BODY').append(_self.vars.HTML_MARKUP);
 			}
 
-			$('.eupopup-button_1').click(function() {
+                        $('.eupopup-button_1').on('click', function() {
 				setUserAcceptsCookies(true);
 				hideContainer();
 				return false;
 			});
-			$('.eupopup-closebutton').click(function() {
+                        $('.eupopup-closebutton').on('click', function() {
 				setUserAcceptsCookies(true);
 				hideContainer();
 				return false;
@@ -260,7 +260,7 @@ $(document).ready( function() {
 	}
 });
 
-$(document).bind("user_cookie_consent_changed", function(event, object) {
+$(document).on("user_cookie_consent_changed", function(event, object) {
 	console.log("User cookie consent changed: " + $(object).attr('consent') );
 });
 
