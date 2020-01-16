@@ -17,9 +17,7 @@
     <link rel="stylesheet" href="css/jquery-eu-cookie-law-popup.min.css">
     <link rel="stylesheet" href="css/style.min.css">
     <link rel="stylesheet" type="text/css" id="wpml-legacy-horizontal-list-0-css" href="https://www.gbif.es/wp-content/plugins/sitepress-multilingual-cms/templates/language-switchers/legacy-list-horizontal/style.css?ver=1" type="text/css" media="all" />
-    <!-- <script src="js/babelpolyfill.js"></script> -->
-    <!-- <script src="js/system.min.js"></script> -->
-    <script src="js/url.min.js"></script>
+
     <script src="js/settings.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migration.min.js"></script>
@@ -32,6 +30,7 @@
     <script src="js/i18n_menus.min.js"></script>
     <script src="js/sentry.min.js"></script>
     <script src="js/stats.min.js"></script>
+    <script src="js/init.min.js"></script>
 </head>
 <body>
 <script type="text/html" id="autoCompleteTemplate">
@@ -60,7 +59,7 @@
              class="btn btn-outline-white btn-sm myProfileBtn" role="button"></a>
           <a href="https://auth.gbif.es/cas/login" class="btn btn-outline-white btn-sm loginBtn" id="auth_bar_login"></a>
           <a href="https://auth.gbif.es/cas/logout" class="btn btn-outline-white btn-sm logoutBtn" role="button" id="auth_bar_logout"></a>
-          <button class="search-icon search-trigger hidden-xs hidden-sm collapsed collapse-trigger-button"
+          <button id="top-search-icon-button-big" class="search-icon search-trigger hidden-xs hidden-sm collapsed collapse-trigger-button"
                   data-toggle="collapse"
                   data-target="#autocompleteSearchALA" onclick="focusOnClickSearchButton()">
             <i class="fas fa-search"></i>
@@ -82,7 +81,7 @@
          class="account-mobile hidden-md hidden-lg logoutBtn mobile-logout-btn" title="Logout link">
         <i class="fas fa-sign-out"></i>
       </a>
-      <button class="display-flex search-trigger hidden-md hidden-lg collapsed collapse-trigger-button search-icon" title="Open search dialog"
+      <button id="top-search-icon-button-small" class="display-flex search-trigger hidden-md hidden-lg collapsed collapse-trigger-button search-icon" title="Open search dialog"
               data-toggle="collapse" data-target="#autocompleteSearchALA"
               onclick="focusOnClickSearchButton()">
         <i class="fas fa-search"></i>
@@ -206,7 +205,7 @@
               <input id="autocompleteHeader" type="text" name="q"
                      placeholder="Search species, datasets, and more..." class="search-input"
                      autocomplete="off"/>
-              <button class="search-submit search-icon" title="submit">
+              <button id="top-search-icon-button" class="search-submit search-icon" title="submit">
                 <i class="fas fa-search"></i>
               </button>
             </div>

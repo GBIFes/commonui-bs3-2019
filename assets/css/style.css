@@ -5192,6 +5192,13 @@ button.search-icon {
   padding: 0px;
 }
 
+/* Initialy not visible, on != datos.gbif.es */
+#top-search-icon-button,
+#top-search-icon-button-big,
+#top-search-icon-button-small {
+  display: none;
+}
+
 .auth-nav {
   text-align: right;
   min-height: 20px;

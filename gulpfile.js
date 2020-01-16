@@ -62,6 +62,7 @@ const paths = {
   js: {
     src: [
       'node_modules/domurl/url.js',
+      'node_modules/js-cookie/src/js.cookie.js',
       'assets/js/*.js'
     ],
     dest: 'build/js/',
@@ -230,20 +231,10 @@ function otherJsFiles() {
     .pipe(gulpTraceurCmdline({
       modules: 'inline',
       debug   : true  }))
-    /* .pipe(concat('all.js')) */
     .pipe(uglify({ output: { comments: '/^!/' } }))
     .pipe(rename({ extname: '.min.js' }))
     .pipe(dest(paths.js.dest));
-
-  /* .pipe(requirejsOptimize( {
-   *   optimize: 'none'
-   * })) */
-  /* .pipe(gulpTraceurCmdline('~/.npm-packages/bin/traceur', { */
-  /* modules: 'inline',
-     outputLanguage: 'es6', */
-  /* out     : '/tmp/main.js', */
-  /* debug   : true  })) */
-
+  /* .pipe(concat('all.js')) */
 }
 
 const js = gulp.parallel(jQuery, jqueryMigration, bootstrapJS, autocompleteJS, otherJsFiles);

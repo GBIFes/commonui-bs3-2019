@@ -112,4 +112,4 @@ function focusOnClickSearchButton () {
     }, 0);
 }
 
-export default focusOnClickSearchButton;
+window.focusOnClickSearchButton = focusOnClickSearchButton;
