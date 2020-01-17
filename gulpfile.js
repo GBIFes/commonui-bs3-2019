@@ -29,6 +29,8 @@ const eslint = require('gulp-eslint');
 
 const { src, dest } = gulp;
 
+const serverPort = 3002;
+
 const paths = {
   styles: {
     boostrap: 'assets/scss/bootstrap.scss',
@@ -95,7 +97,7 @@ const output = 'living-atlas';
  * @type {string}
  */
 
-const localserver = 'http://localhost:3002';
+const localserver = `http://localhost:${serverPort}`;
 
 /**
  * Bootstrap output is dependent on value of @link{output} variable.
@@ -308,6 +310,7 @@ const cssWatch = gulp.series(css, function (done) {
 
 gulp.task('default', gulp.series(css, html, testHTMLPage, images, font, js, function () {
   browserSync.init({
+    port: serverPort,
     server: {
       baseDir: "./build/",
       index: "testPage.html"
