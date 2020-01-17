@@ -6,6 +6,7 @@ import gbifesjs from './settings.js';
 import { locale, enabledLangs } from './i18n_init.js';
 
 function i18n_menus() {
+  console.log('Calling i18n_menus');
   if (gbifesjs.isDevel) console.log(`locale in i18n_menus: ${locale}`);
 
   // Add lang param to lang links
@@ -126,6 +127,11 @@ function i18n_menus() {
   });
 }
 
-document.addEventListener("DOMContentLoaded",function(){
+window.i18n_menu_initialized = false;
+
+$(function() {
+  // This is called twice (it seems that DOM is modified twice, so let's prevent this
+  if(window.i18n_menu_initialized) return;
   i18n_menus();
+  window.i18n_menu_initialized = true;
 });

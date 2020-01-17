@@ -1,24 +1,22 @@
 import './url.js';
-import gbifesjs from './settings.js';
 import './js.cookie.js';
+import gbifesjs from './settings.js';
 
-var locale;
+var locale = window.gbiflocale;
 
 // https://github.com/Mikhus/domurl
 var currentUrl  = new Url;
 
 const enabledLangs = ['es', 'en', 'ca'];
 
-if (gbifesjs.isDevel) console.log("Is development!");
-
 function i18n_init() {
+  if (gbifesjs.isDevel) console.log("i18n init in development!");
 
   locale = currentUrl.query.lang;
 
   if (gbifesjs.isDevel) console.log(`Lang locale: ${locale}`);
 
   if (typeof locale === 'undefined') {
-    // locale = localStorage.getItem('locale');
     locale = Cookies.get('datos-gbif-es-lang')
   }
   if (gbifesjs.isDevel) console.log(`Initial locale: ${locale}`);
@@ -40,8 +38,6 @@ function i18n_init() {
   // try this
   Cookies.set('datos-gbif-es-lang', locale, { expires: 365, path: '/', domain: '.gbif.es' });
 
-  // localStorage.setItem('locale', locale);
-
 }
 
 if (typeof locale === 'undefined') {
@@ -58,6 +54,8 @@ if (typeof Cookies.get('datos-gbif-es-lang-session') === 'undefined' && typeof c
   currentUrl.query.lang = locale;
   document.location.search = currentUrl.query;
 }
+
+window.gbiflocale = locale;
 
 Object.freeze(locale);
 Object.freeze(enabledLangs);
