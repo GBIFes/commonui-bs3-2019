@@ -2,12 +2,37 @@ import './url.js';
 import './js.cookie.js';
 import gbifesjs from './settings.js';
 
+// import "./navigator-languages-parser.js";
+// For some reason the import fails so copied here:
+// https://www.npmjs.com/package/navigator-languages-parser
+
+function getUsersPreferredLanguages() {
+  if (navigator.languages !== undefined) {
+    return navigator.languages;
+  } else if (navigator.language !== undefined) {
+    return [navigator.language];
+  } else {
+    return undefined;
+  } // create else for final fallback, and also create a test for it
+}
+
+function parseLanguages(acceptedLangs, defaultLang = false) {
+  const userPref = getUsersPreferredLanguages();
+  const match = userPref ? userPref.find(lang => acceptedLangs.indexOf(lang) !== -1) : undefined;
+  if (match === undefined && defaultLang !== false ) {
+    return defaultLang;
+  }
+  return match;
+}
+
 var locale = window.gbiflocale;
 
 // https://github.com/Mikhus/domurl
 var currentUrl  = new Url;
 
 const enabledLangs = ['es', 'en', 'ca'];
+
+console.log(`Navigator languages locale: ${parseLanguages(enabledLangs, 'es')}`);
 
 function i18n_init() {
   if (gbifesjs.isDevel) console.log("i18n init in development!");
@@ -19,16 +44,22 @@ function i18n_init() {
   if (typeof locale === 'undefined') {
     locale = Cookies.get('datos-gbif-es-lang')
   }
+
   if (gbifesjs.isDevel) console.log(`Initial locale: ${locale}`);
 
   if (locale === undefined || locale === null) {
-    locale = navigator.language.substring(0, 2);
+    locale = parseLanguages(enabledLangs, 'es');
   }
+
+  if (gbifesjs.isDevel) console.log(`Detect locale: ${locale}`);
 
   const isValid = (enabledLangs.indexOf(locale) > -1);
 
   if (!isValid) {
     locale = 'es';
+    if (gbifesjs.isDevel) console.log(`Setting default locale: ${locale}`);
+  } else {
+    if (gbifesjs.isDevel) console.log(`Setting locale from browser: ${locale}`);
   }
 
   if (gbifesjs.isDevel) console.log(`End locale: ${locale}`);
@@ -56,8 +87,5 @@ if (typeof Cookies.get('datos-gbif-es-lang-session') === 'undefined' && typeof c
 }
 
 window.gbiflocale = locale;
-
-Object.freeze(locale);
-Object.freeze(enabledLangs);
 
 export { locale, enabledLangs };

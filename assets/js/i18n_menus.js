@@ -4,6 +4,14 @@
 
 import gbifesjs from './settings.js';
 import { locale, enabledLangs } from './i18n_init.js';
+import './jquery.i18n.properties.js';
+import './jquery-eu-cookie-law-popup.js';
+
+// IE don't have String.endsWith
+// https://stackoverflow.com/a/2548133/642847
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
 
 function i18n_menus() {
   console.log('Calling i18n_menus');
@@ -29,15 +37,16 @@ function i18n_menus() {
 
   const url = window.location.href;
 
+  // This part is for the lang links
   for (let i = 0; i < enabledLangs.length; i++) {
     const curlang = enabledLangs[i];
     const $link = $(`.${curlang}-locale-link`); // or grab it by tagname etc
 
     let localeUrl = url;
 
-    if (url.includes('lang=')) {
+    if (url.indexOf('lang=') !== -1) {
       localeUrl = url.replace(/lang=en|lang=es|lang=ca/gi, `lang=${curlang}`);
-    } else if (url.includes('?')) {
+    } else if (url.indexOf('?') !== -1) {
       localeUrl = `${localeUrl}&lang=${curlang}`;
     } else {
       const uri = url.split('#')[0];
@@ -48,6 +57,7 @@ function i18n_menus() {
     $link.attr('href', localeUrl);
     if (gbifesjs.isDevel) console.log(`Added lang to href: ${$link.attr('href')}`);
   }
+
 
   // underscore current locale
   $('.wpml-ls-statics-shortcode_actions ul li').each(function (index) {
@@ -61,18 +71,25 @@ function i18n_menus() {
   const path = `${gbifesjs.layoutUrl}i18n/`;
 
   if (gbifesjs.isDevel) console.log(`localePath: ${path}`);
+  if (typeof jQuery.i18n === 'undefined') console.warn('jQuery.i18n not yet loaded');
 
+  // https://github.com/jquery-i18n-properties/jquery-i18n-properties
   jQuery.i18n.properties({
     name: 'messages',
-    path,
-    mode: 'both',
+    path: path,
+    mode: 'map',
+    debug: false,
+    encoding: 'UTF-8',
+    cache: false,
     language: locale,
     async: true,
-    callback() {
+    callback: function() {
+      if (gbifesjs.isDevel) console.log(`i18n callback start`);
       const keys = [
         'main_title_label',
         'menu_portal_part1',
         'menu_portal_part2',
+        'menu_home',
         'menu_collections',
         'menu_datasets',
         'menu_search',
@@ -116,22 +133,43 @@ function i18n_menus() {
       ];
 
       for (let i = 0; i < keys.length; i++) {
-        if (keys[i].endsWith('_placeholder')) {
-	  const elementID = keys[i].substring(0, keys[i].length - 12);
-	  $(`#${elementID}`).attr('placeholder', jQuery.i18n.prop(keys[i]));
-        } else {
-	  $(`#${keys[i]}`).html(jQuery.i18n.prop(keys[i]));
+        const trans = jQuery.i18n.prop(keys[i]);
+        if (gbifesjs.isDevel) console.log(`i18n of ${keys[i]}: ${trans}`);
+        if (typeof trans !== 'undefined') {
+          if (endsWith(keys[i], '_placeholder')) {
+            const elementID = keys[i].substring(0, keys[i].length - 12);
+            // verify that this element exists
+            $(`#${elementID}`) && $(`#${elementID}`).attr('placeholder', trans);
+          } else {
+            // verify that this element exists
+            $(`#${keys[i]}`) && $(`#${keys[i]}`).html(trans);
+          }
         }
       }
+
+      $(document).euCookieLawPopup().init({
+        cookiePolicyUrl : 'https://www.gbif.es/politica-de-cookies/',
+        popupPosition : 'bottom',
+        colorStyle : 'gbif',
+        compactStyle : true,
+        popupTitle : '',
+        popupText : jQuery.i18n.prop('cookie_message'),
+        buttonContinueTitle : jQuery.i18n.prop('cookie_accept_btn'),
+        buttonLearnmoreTitle :jQuery.i18n.prop('cookie_policy_btn'),
+        buttonLearnmoreOpenInNewWindow : true,
+        agreementExpiresInDays : 30,
+        autoAcceptCookiePolicy : false,
+        htmlMarkup : null
+      });
     }
   });
 }
 
-window.i18n_menu_initialized = false;
-
+// Warn, with min version fails so we load here
+/* $.getScript('/js/jquery.i18n.properties.min.js', function() {
+ *   console.log('$.i18n loaded.');
+ * });
+ *  */
 $(function() {
-  // This is called twice (it seems that DOM is modified twice, so let's prevent this
-  if(window.i18n_menu_initialized) return;
   i18n_menus();
-  window.i18n_menu_initialized = true;
 });

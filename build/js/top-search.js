@@ -11,7 +11,7 @@ var enableBieSearch = () => {
   }
 }
 
-document.addEventListener("DOMContentLoaded",function(){
+$(function(){
   console.log('Enabling BIE search');
   enableBieSearch();
 });
