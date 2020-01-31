@@ -1,5 +1,7 @@
 # commonui-bs3-2019
 
+**Deprecated**: See new: https://github.com/GBIFes/gbifes-branding-es6
+
 GBIF.es header, footer, theme and javascript files based in new ALA branding just to follow grails integration.
 
 ## Setting up development environment
